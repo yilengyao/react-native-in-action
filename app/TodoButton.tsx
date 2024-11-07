@@ -1,11 +1,6 @@
 import React from 'react';
 import { Text, TouchableHighlight, StyleSheet } from 'react-native';
-
-interface TodoButtonProps {
-  onPress: () => void;
-  complete?: boolean;
-  name: string;
-}
+import { TodoButtonProps } from './types';
 
 const TodoButton: React.FC<TodoButtonProps> = ({ onPress, complete, name }) => (
   <TouchableHighlight

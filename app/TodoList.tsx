@@ -1,13 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import Todo from './Todo';
-
-interface TodoListProps {
-  todos: any[];
-  deleteTodo: (todoIndex: number) => void;
-  toggleComplete: (todoIndex: number) => void;
-  type: string;
-}
+import { TodoListProps } from './types';
 
 const TodoList: React.FC<TodoListProps> = ({ todos, deleteTodo, toggleComplete, type }) => {
   const getVisibleTodos = (todos: any[], type: string) => {

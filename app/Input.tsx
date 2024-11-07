@@ -1,10 +1,6 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
-
-interface InputProps {
-  inputValue: string;
-  inputChange: (text: string) => void;
-}
+import { InputProps } from './types';
 
 const Input: React.FC<InputProps> = ({ inputValue, inputChange }) => (
   <View style={styles.inputContainer}>

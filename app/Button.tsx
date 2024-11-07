@@ -1,9 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
-
-interface ButtonProps {
-  submitTodo: () => void;
-}
+import { ButtonProps } from './types';
 
 const Button: React.FC<ButtonProps> = ({ submitTodo }) => (
   <View style={styles.buttonContainer}>

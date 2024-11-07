@@ -1,12 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import TodoButton from './TodoButton';
-
-interface TodoProps {
-  todo: any;
-  toggleComplete: (todoIndex: number) => void;
-  deleteTodo: (todoIndex: number) => void;
-}
+import { TodoProps } from './types';
 
 const Todo: React.FC<TodoProps> = ({ todo, toggleComplete, deleteTodo }) => (
   <View style={styles.todoContainer}>

@@ -5,16 +5,7 @@ import Input from './Input';
 import Button from './Button';
 import TodoList from './TodoList';
 import TabBar from './TabBar';
-
-interface AppProps {
-  title: string;
-}
-
-interface AppState {
-  inputValue: string;
-  todos: any[];
-  type: string;
-}
+import { AppProps, AppState } from './types';
 
 let todoIndex = 0;
 

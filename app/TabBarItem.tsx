@@ -1,13 +1,6 @@
 import React from 'react';
 import { Text, TouchableHighlight, StyleSheet } from 'react-native';
-
-interface TabBarItemProps {
-  border?: boolean;
-  title: string;
-  selected?: boolean;
-  setType: () => void;
-  type: string;
-}
+import { TabBarItemProps } from './types';
 
 const TabBarItem: React.FC<TabBarItemProps> = ({ border, title, selected, setType, type }) => (
   <TouchableHighlight

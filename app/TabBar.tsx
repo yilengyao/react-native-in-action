@@ -1,11 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import TabBarItem from './TabBarItem';
-
-interface TabBarProps {
-  setType: (type: string) => void;
-  type: string;
-}
+import { TabBarProps } from './types';
 
 const TabBar: React.FC<TabBarProps> = ({ setType, type }) => (
   <View style={styles.container}>

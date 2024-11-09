@@ -12,23 +12,23 @@ export default class App extends Component<{}> {
           </CenteredText>
         </Example>
         <Example style={{
-          marginTop: 50
+          paddingTop: 50
         }}>
           <CenteredText>
             B
           </CenteredText>
         </Example>
         <Example style={{
-          marginTop: 50,
-          marginLeft: 10
+          paddingTop: 50,
+          paddingLeft: 10
         }}>
           <CenteredText>
             C
           </CenteredText>
         </Example>
         <Example style={{
-          marginLeft: -10,
-          marginTop: -10
+          paddingLeft: -10,
+          paddingTop: -10
         }}>
           <CenteredText>
             D

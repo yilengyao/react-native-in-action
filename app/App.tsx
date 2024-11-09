@@ -6,30 +6,32 @@ export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Example style={{ borderRadius: 20 }}>
+        <Example>
           <CenteredText>
-            Example 1:{"\n"}4 rounded corners
+            A
           </CenteredText>
         </Example>
         <Example style={{
-          borderTopRightRadius: 60,
-          borderBottomRightRadius: 60
+          marginTop: 50
         }}>
           <CenteredText>
-            Example 2:{"\n"}D Shape
+            B
           </CenteredText>
         </Example>
         <Example style={{
-          borderTopLeftRadius: 30,
-          borderBottomRightRadius: 30
+          marginTop: 50,
+          marginLeft: 10
         }}>
           <CenteredText>
-            Example 3:{"\n"}Leaf Shape
+            C
           </CenteredText>
         </Example>
-        <Example style={{ borderRadius: 90 }}>
+        <Example style={{
+          marginLeft: -10,
+          marginTop: -10
+        }}>
           <CenteredText>
-            Example 4:{"\n"}Circle
+            D
           </CenteredText>
         </Example>
       </View>
@@ -38,8 +40,8 @@ export default class App extends Component<{}> {
 }
 
 interface ExampleProps {
-  style: any
-  children: any
+  style?: any
+  children?: any
 }
 
 const Example = (props: ExampleProps) => (
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 75
+    marginTop: 75,
   },
   example: {
     width: 120,

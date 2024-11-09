@@ -14,7 +14,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'TodoApp' do
+target 'ReactNativeInAction' do
   config = use_native_modules!
 
   use_react_native!(
@@ -23,7 +23,7 @@ target 'TodoApp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'TodoAppTests' do
+  target 'ReactNativeInActionTests' do
     inherit! :complete
     # Pods for testing
   end

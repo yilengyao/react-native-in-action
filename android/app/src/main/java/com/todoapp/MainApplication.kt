@@ -1,4 +1,4 @@
-package com.todoapp
+package com.reactnativeinaction
 
 import android.app.Application
 import com.facebook.react.PackageList

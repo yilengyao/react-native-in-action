@@ -1,98 +1,40 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
-import Heading from './Heading';
-import Input from './Input';
-import Button from './Button';
-import TodoList from './TodoList';
-import TabBar from './TabBar';
-import { AppProps, AppState } from './types';
+import { Button, StyleSheet, View } from 'react-native';
+import getStyleSheet from './styles';
 
-let todoIndex = 0;
+interface AppState {
+  darkTheme: boolean;
+}
 
-class App extends Component<AppProps, AppState> {
-  constructor(props: AppProps) {
+export default class App extends Component<{}, AppState> {
+  constructor(props: {}) {
     super(props);
     this.state = {
-      inputValue: '',
-      todos: [],
-      type: 'All'
+      darkTheme: false
     }
-    console.log('App Props: ', props);
-    this.inputChange = this.inputChange.bind(this);
-    this.submitTodo = this.submitTodo.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
-    this.toggleComplete = this.toggleComplete.bind(this);
-    this.setType = this.setType.bind(this);
+    this.toggleTheme = this.toggleTheme.bind(this);
   }
-  inputChange(inputValue: string) {
-    console.log(' Input Value: ', inputValue);
-    this.setState({ inputValue });
-  }
-  submitTodo() {
-    if (this.state.inputValue.match(/^\s*$/)) {
-      return;
-    }
-    const todo = {
-      title: this.state.inputValue,
-      todoIndex,
-      complete: false
-    }
-    todoIndex++;
-    const todos = [...this.state.todos, todo];
-    this.setState({ todos, inputValue: '' }, () => {
-      console.log('State: ', this.state);
-    })
-  }
-  deleteTodo(todoIndex: number) {
-    let { todos } = this.state;
-    todos = todos.filter((todo) => todo.todoIndex !== todoIndex);
-    this.setState({ todos });
-  }
-  toggleComplete(todoIndex: number) {
-    let todos = this.state.todos;
-    todos.forEach((todo) => {
-      if (todo.todoIndex === todoIndex) {
-        todo.complete = !todo.complete;
-      }
-    })
-    this.setState({ todos });
-  }
-  setType(type: string) {
-    this.setState({ type });
-  }
+
+  toggleTheme() {
+    this.setState({ darkTheme: !this.state.darkTheme });
+  };
+
   render() {
-    const { inputValue, todos, type } = this.state;
+
+    const styles = getStyleSheet(this.state.darkTheme);
+    /*
+     * The React Native StyleSheet.flatten utility converts
+     * the StyleSheet object into a JavaScript object, which
+     * makes it easier to get he background color
+     */
+    const backgroundColor = StyleSheet.flatten(styles.container).backgroundColor;
     return (
       <View style={styles.container}>
-        <ScrollView keyboardShouldPersistTaps='always'
-          style={styles.content}>
-          <Heading />
-          <Input
-            inputValue={inputValue}
-            inputChange={(text) => this.inputChange(text)} />
-          <TodoList
-            type={type}
-            toggleComplete={this.toggleComplete}
-            deleteTodo={this.deleteTodo}
-            todos={todos} />
-          <Button submitTodo={this.submitTodo} />
-        </ScrollView>
-        <TabBar type={type} setType={this.setType} />
+        <View style={styles.box}>
+          <Button title={backgroundColor} onPress={this.toggleTheme} />
+        </View>
       </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  content: {
-    flex: 1,
-    paddingTop: 60
-  }
-})
-
-export default App;
 

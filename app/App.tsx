@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   cardContainer: {
-    borderColor: 'black',
+    alignItems: 'center',
+      borderColor: 'black', 
     borderStyle: 'solid',
     backgroundColor: profileCardColor,
     width: 300,
@@ -35,12 +36,15 @@ const styles = StyleSheet.create({
     borderWidth: 3,
   },
   cardImageContainer: {
-    backgroundColor: 'white',
-    width: 120,
+  alignItems: 'center', 
+    backgroundColor: 'white',  
+  width: 120,
     height: 120,
     borderRadius: 60,
     borderWidth: 3,
-    borderColor: 'black'
+    borderColor: 'black',
+    marginTop: 30,
+    paddingTop: 15
   },
   cardImage: {
     width: 80,

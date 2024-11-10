@@ -6,34 +6,41 @@ export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Example>
-          <CenteredText>
-            A
-          </CenteredText>
-        </Example>
-        <Example style={{
-          paddingTop: 50
-        }}>
-          <CenteredText>
-            B
-          </CenteredText>
-        </Example>
-        <Example style={{
-          paddingTop: 50,
-          paddingLeft: 10
-        }}>
-          <CenteredText>
-            C
-          </CenteredText>
-        </Example>
-        <Example style={{
-          paddingLeft: -10,
-          paddingTop: -10
-        }}>
-          <CenteredText>
-            D
-          </CenteredText>
-        </Example>
+        <View style={styles.row}>
+          <Example>
+            <CenteredText>
+              A
+            </CenteredText>
+          </Example>
+          <Example>
+            <CenteredText>
+              B
+            </CenteredText>
+            <View style={[styles.tinyExample,
+            {
+              position: 'absolute',
+              right: 0,
+              bottom: 0
+            }]}>
+              <CenteredText>
+                E
+              </CenteredText>
+            </View>
+          </Example>
+          <Example>
+            <CenteredText>
+              C
+            </CenteredText>
+          </Example>
+          <Example style={{
+            position: 'absolute',
+            right: 0, botton: 0
+          }}>
+            <CenteredText>
+              D
+            </CenteredText>
+          </Example>
+        </View>
       </View>
     )
   }
@@ -63,19 +70,29 @@ const CenteredText = (props: CenteredTextProps) => (
 
 const styles = StyleSheet.create({
   container: {
+    width: 300,
+    height: 300,
+    margin: 40,
+    marginTop: 100,
+    borderWidth: 1,
+  },
+  row: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 75,
+    flexDirection: 'row'
   },
   example: {
-    width: 120,
-    height: 120,
-    marginLeft: 20,
-    marginBottom: 20,
+    width: 100,
+    height: 100,
     backgroundColor: 'grey',
-    borderWidth: 2,
+    borderWidth: 1,
     justifyContent: 'center'
+  },
+  tinyExample: {
+    width: 30,
+    height: 30,
+    borderWidth: 1,
+    justifyContent: 'center',
+    backgroundColor: 'lightgrey'
   },
   centeredText: {
     textAlign: 'center',

@@ -11,11 +11,7 @@ import {
 
 import CenterMessage from '../components/CenterMessage';
 import { colors } from '../theme';
-
-interface Location {
-  name: string;
-  info: string;
-}
+import type { CityProps, CityState, Location } from '../types';
 
 interface CityType {
   city: string;
@@ -24,24 +20,9 @@ interface CityType {
   locations: Location[];
 }
 
-interface CityProps {
-  navigation: any;
-  route: {
-    params: {
-      city: CityType
-    };
-  };
-  addLocation: (location: Location, city: CityType) => void;
-}
-
-interface CityState {
-  name: string;
-  info: string;
-}
-
 class City extends React.Component<CityProps, CityState> {
-  static navigationOptions = (props: CityProps) => {
-    const { city } = props.navigation.state.params;
+  static navigationOptions = ({ route }: { route: any }) => {
+    const { city } = route.params;
     return {
       title: city.city,
       headerTitleStyle: {
@@ -51,6 +32,7 @@ class City extends React.Component<CityProps, CityState> {
       }
     }
   }
+
   state: CityState = {
     name: '',
     info: ''
@@ -61,35 +43,39 @@ class City extends React.Component<CityProps, CityState> {
     } as Pick<CityState, keyof CityState>);
   }
   addLocation = () => {
-    if (this.state.name === '' || this.state.info === '') return
-    const { city } = this.props.navigation.state.params;
+    if (this.state.name === '' || this.state.info === '') return;
+    
+    const { city, addLocation } = this.props.route.params;
     const location = {
       name: this.state.name,
       info: this.state.info
     }
-    this.props.addLocation(location, city);
+    
+    addLocation(location, city);
     this.setState({ name: '', info: '' });
   }
   render() {
-    const { city } = this.props.navigation.state.params;
+    const { city } = this.props.route.params;
+    const locations = city?.locations || [];
+
     return (
       <View style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={
-          [!city.locations.length && { flex: 1 }]
+          [!locations.length && { flex: 1 }]
         }>
           <View style={[
             styles.locationContainer,
-            !city.locations.length && {
+            !locations.length && {
               flex: 1,
               justifyContent: 'center'
             }
           ]}>
             {
-              !city.locations.length &&
+              !locations.length &&
               <CenterMessage message='No locations for this city!' />
             }
             {
-              city.locations.map((location: any, index: number) => (
+              locations.map((location: Location, index: number) => (
                 <View key={index} style={styles.locationContainer}>
                   <Text style={styles.locationName}>{location.name}</Text>
                   <Text style={styles.locationInfo}>{location.info}</Text>

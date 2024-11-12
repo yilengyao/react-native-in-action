@@ -1,22 +1,7 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Tabs from './src';
-
-interface Location {
-  name: string;
-  info: string;
-}
-
-interface CityType {
-  city: string;
-  country: string;
-  id: string;
-  locations: Location[];
-}
-
-interface AppState {
-  cities: CityType[];
-}
+import type { AppState, CityType, Location } from './src/types';
 
 export default class App extends Component<{}, AppState> {
   state: AppState = {
@@ -44,11 +29,9 @@ export default class App extends Component<{}, AppState> {
     return (
       <NavigationContainer>
         <Tabs
-          screenProps={{
-            cities: [],
-            addCity: () => { },
-            addLocation: () => { }
-          }}
+          cities={this.state.cities}
+          addCity={this.addCity}
+          addLocation={this.addLocation}
         />
       </NavigationContainer>
     );

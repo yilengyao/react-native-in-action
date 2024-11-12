@@ -10,25 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
-interface Location {
-  name: string;
-  info: string;
-}
-
-interface CityType {
-  city: string;
-  country: string;
-  id: string;
-  locations: Location[];
-}
-
-interface TabsProps {
-  screenProps: {
-    cities: CityType[];
-    addCity: (city: City) => void;
-    addLocation: (location: Location, city: City) => void;
-  }
-}
+import type { TabsProps, CityType, Location, CitiesStackParamList } from './types';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,27 +22,34 @@ const options = {
   headerTintColor: '#fff'
 }
 
-const CitiesNav: React.FC<TabsProps> = ({ screenProps }) => (
+const CitiesNav: React.FC<TabsProps> = ({ cities, addLocation }) => (
   <Stack.Navigator screenOptions={options}>
-    <Stack.Screen name="Cities">
-      {props => <Cities {...props} cities={screenProps.cities} />}
-    </Stack.Screen>
-    <Stack.Screen name="City">
-      {props => <City {...props} addLocation={screenProps.addLocation} />}
-    </Stack.Screen>
+    <Stack.Screen 
+      name="Cities"
+      component={Cities as React.ComponentType<any>}
+      initialParams={{ cities }}
+    />
+    <Stack.Screen 
+      name="City"
+      component={City as React.ComponentType<any>}
+      initialParams={{ addLocation, city: undefined }}
+    />
   </Stack.Navigator>
 );
 
-const Tabs: React.FC<TabsProps> = ({ screenProps }) => (
+const Tabs: React.FC<TabsProps> = ({ cities, addCity, addLocation }) => (
   <Tab.Navigator>
-    <Tab.Screen name="Cities">
-      {props => <CitiesNav {...props} screenProps={screenProps} />}
-    </Tab.Screen>
-    <Tab.Screen name="AddCity">
-      {props => <AddCity {...props} addCity={screenProps.addCity} />}
-    </Tab.Screen>
+    <Tab.Screen 
+      name="AddCity"
+      component={AddCity as React.ComponentType<any>}
+      initialParams={{ addCity }}
+    />
+    <Tab.Screen 
+      name="Cities"
+      component={CitiesNav as React.ComponentType<any>}
+      initialParams={{ cities, addLocation }}
+    />
   </Tab.Navigator>
 );
-
 
 export default Tabs;

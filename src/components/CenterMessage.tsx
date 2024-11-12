@@ -6,27 +6,27 @@ import {
 } from 'react-native';
 
 import { colors } from '../theme';
-
-interface CenterMessageProps {
-  message: string;
-}
+import type { CenterMessageProps } from '../types';
 
 const CenterMessage: React.FC<CenterMessageProps> = ({ message }) => (
-  <View style={styles.emptyContainer}>
+  <View style={styles.container}>
     <Text style={styles.message}>{message}</Text>
   </View>
 );
 
 const styles = StyleSheet.create({
-  emptyContainer: {
-    padding: 10,
-    borderBottomWidth: 2,
+  container: {
+    padding: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: colors.primary
   },
   message: {
-    alignSelf: 'center',
-    fontSize: 20
+    fontSize: 16,
+    fontWeight: '500',
+    color: colors.primary
   }
-})
+});
 
 export default CenterMessage;

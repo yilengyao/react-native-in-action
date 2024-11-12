@@ -10,28 +10,7 @@ import {
 
 import uuid from 'react-native-uuid';
 import { colors } from '../theme';
-
-interface Location {
-  name: string;
-  info: string;
-}
-
-interface CityType {
-  city: string;
-  country: string;
-  id: string;
-  locations: Location[];
-}
-
-interface AddCityProps {
-  navigation: any;
-  addCity: (city: CityType) => void;
-}
-
-interface AddCityState {
-  city: string;
-  country: string;
-}
+import type { AddCityProps, AddCityState, CityType } from '../types';
 
 class AddCity extends React.Component<AddCityProps, AddCityState> {
   state: AddCityState = {
@@ -44,6 +23,7 @@ class AddCity extends React.Component<AddCityProps, AddCityState> {
   submit = () => {
     if (this.state.city === '' || this.state.country === '') {
       Alert.alert('please complete form');
+      return;
     }
     const city: CityType = {
       city: this.state.city,
@@ -51,7 +31,7 @@ class AddCity extends React.Component<AddCityProps, AddCityState> {
       id: uuid.v4() as string,
       locations: []
     }
-    this.props.addCity(city);
+    this.props.route.params.addCity(city);
     this.setState({
       city: '',
       country: ''

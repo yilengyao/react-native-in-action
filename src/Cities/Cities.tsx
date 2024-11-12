@@ -11,22 +11,7 @@ import CenterMessage from '../components/CenterMessage';
 
 import { colors } from '../theme';
 
-interface Location {
-  name: string;
-  info: string;
-}
-
-interface CityType {
-  city: string;
-  country: string;
-  id: string;
-  locations: Location[];
-}
-
-interface CitiesProps {
-  navigation: any;
-  cities: CityType[];
-}
+import type { CitiesProps, CityType } from '../types';
 
 export default class Cities extends React.Component<CitiesProps> {
   static navigationOptions = {
@@ -37,29 +22,39 @@ export default class Cities extends React.Component<CitiesProps> {
       fontWeight: '400'
     }
   }
-  navigate = (item: any) => {
+
+  navigate = (item: CityType) => {
     this.props.navigation.navigate('City', { city: item });
   }
+
   render() {
     const { cities } = this.props;
+    const citiesArray = cities || [];
     return (
-      <ScrollView contentContainerStyle={[!cities.length && { flex: 1 }]}>
-        <View style={[!cities.length &&
-          { justifyContent: 'center', flex: 1 }]}>
-          {
-            !cities.length && <CenterMessage message='No saved cities!' />
-          }
-          {
-            cities.map((item: any, index: number) => (
-              <TouchableWithoutFeedback
-                onPress={() => this.navigate(item)} key={index} >
-                <Text style={styles.city}>{item.city}</Text>
-                <Text style={styles.country}>{item.country}</Text>
-              </TouchableWithoutFeedback>
-            ))
-          }
-        </View>
-      </ScrollView>
+      <View style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={!citiesArray.length ? { flex: 1 } : {}}>
+          <View style={[
+            styles.cityContainer,
+            !citiesArray.length && { flex: 1, justifyContent: 'center' }
+          ]}>
+            {
+              !citiesArray.length && <CenterMessage message='No cities added!' />
+            }
+            {
+              citiesArray.map((city: CityType, index: number) => (
+                <TouchableWithoutFeedback
+                  key={index}
+                  onPress={() => this.navigate(city)}>
+                  <View style={styles.cityContainer}>
+                    <Text style={styles.city}>{city.city}</Text>
+                    <Text style={styles.country}>{city.country}</Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              ))
+            }
+          </View>
+        </ScrollView>
+      </View>
     )
   }
 }

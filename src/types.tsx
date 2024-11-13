@@ -20,12 +20,9 @@ export interface CitiesProps {
 }
 
 export interface AddCityProps {
-  route: {
-    params: {
-      addCity: (city: CityType) => void;
-    };
-  };
   navigation: NavigationProp<any>;
+  route: RouteProp<any, any>;
+  addCity: (city: CityType) => void;
 }
 
 export interface AddCityState {
@@ -34,6 +31,7 @@ export interface AddCityState {
 }
 
 export interface CityProps {
+  addLocation: (location: Location, city: CityType) => void;
   navigation: NavigationProp<any>;
   route: {
     params: {

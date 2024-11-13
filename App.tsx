@@ -15,8 +15,10 @@ export default class App extends Component<{}, AppState> {
 
   addLocation = (location: Location, city: CityType) => {
     const index = this.state.cities.findIndex(item => item.id === city.id);
-    const chosenCity = { ...this.state.cities[index] };
-    chosenCity.locations.push(location);
+    const chosenCity = {
+      ...this.state.cities[index],
+      locations: [...this.state.cities[index].locations, location]
+    };
     const cities = [
       ...this.state.cities.slice(0, index),
       chosenCity,

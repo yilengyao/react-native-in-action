@@ -6,11 +6,10 @@ import AddCity from './AddCity/AddCity';
 
 import { colors } from './theme';
 
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import type { TabsProps, CityType, Location, CitiesStackParamList } from './types';
+import type { TabsProps } from './types';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,34 +21,43 @@ const options = {
   headerTintColor: '#fff'
 }
 
-const CitiesNav: React.FC<TabsProps> = ({ cities, addLocation }) => (
-  <Stack.Navigator screenOptions={options}>
-    <Stack.Screen 
-      name="Cities"
-      component={Cities as React.ComponentType<any>}
-      initialParams={{ cities }}
-    />
-    <Stack.Screen 
-      name="City"
-      component={City as React.ComponentType<any>}
-      initialParams={{ addLocation, city: undefined }}
-    />
-  </Stack.Navigator>
-);
+const CitiesNav: React.FC<TabsProps> = ({ cities, addLocation }) => {
+  return (
+    <Stack.Navigator screenOptions={options}>
+      <Stack.Screen
+        name="CitiesList"
+        options={{ title: 'Cities' }}
+      >
+        {props => <Cities {...props} cities={cities} />}
+      </Stack.Screen>
+      <Stack.Screen
+        name="City"
+        options={{ title: 'City' }}
+      >
+        {props => <City {...props} addLocation={addLocation} />}
+      </Stack.Screen>
+    </Stack.Navigator>
+  );
+}
 
-const Tabs: React.FC<TabsProps> = ({ cities, addCity, addLocation }) => (
-  <Tab.Navigator>
-    <Tab.Screen 
-      name="AddCity"
-      component={AddCity as React.ComponentType<any>}
-      initialParams={{ addCity }}
-    />
-    <Tab.Screen 
-      name="Cities"
-      component={CitiesNav as React.ComponentType<any>}
-      initialParams={{ cities, addLocation }}
-    />
-  </Tab.Navigator>
-);
+const Tabs: React.FC<TabsProps> = ({ cities, addCity, addLocation }) => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="AddCity"
+        options={{ title: 'Add City' }}
+      >
+        {(props) => <AddCity {...props} addCity={addCity} />}
+      </Tab.Screen>
+      <Tab.Screen
+        name="Cities"
+        options={{ title: 'Cities' }}
+      >
+        {(props) => <CitiesNav {...props} cities={cities} addLocation={addLocation} />}
+      </Tab.Screen>
+    </Tab.Navigator>
+  );
+}
+
 
 export default Tabs;

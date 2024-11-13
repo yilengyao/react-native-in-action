@@ -13,13 +13,6 @@ import CenterMessage from '../components/CenterMessage';
 import { colors } from '../theme';
 import type { CityProps, CityState, Location } from '../types';
 
-interface CityType {
-  city: string;
-  country: string;
-  id: string;
-  locations: Location[];
-}
-
 class City extends React.Component<CityProps, CityState> {
   static navigationOptions = ({ route }: { route: any }) => {
     const { city } = route.params;
@@ -44,14 +37,13 @@ class City extends React.Component<CityProps, CityState> {
   }
   addLocation = () => {
     if (this.state.name === '' || this.state.info === '') return;
-    
-    const { city, addLocation } = this.props.route.params;
+
+    const { city } = this.props.route.params;
     const location = {
       name: this.state.name,
       info: this.state.info
     }
-    
-    addLocation(location, city);
+    this.props.addLocation(location, city);
     this.setState({ name: '', info: '' });
   }
   render() {

@@ -20,6 +20,12 @@ class AddCity extends React.Component<AddCityProps, AddCityState> {
   onChangeText = (key: any, value: any) => {
     this.setState({ [key]: value } as Pick<AddCityState, keyof AddCityState>);
   }
+  componentDidMount() {
+    const { addCity } = this.props;
+    this.props.navigation.setOptions({
+      addCity
+    });
+  }
   submit = () => {
     if (this.state.city === '' || this.state.country === '') {
       Alert.alert('please complete form');
@@ -31,7 +37,7 @@ class AddCity extends React.Component<AddCityProps, AddCityState> {
       id: uuid.v4() as string,
       locations: []
     }
-    this.props.route.params.addCity(city);
+    this.props.addCity(city);
     this.setState({
       city: '',
       country: ''
